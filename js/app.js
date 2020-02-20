@@ -54,5 +54,11 @@ function isDiceOne(dice) {
     addScore(dice);
     activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
     roundScore = 0;
+
+    document.querySelector("#current-0").textContent = (0).toString();
+    document.querySelector("#current-1").textContent = (0).toString();
+
+    document.querySelector(".player-0-panel").classList.toggle("active");
+    document.querySelector(".player-1-panel").classList.toggle("active");
   }
 }
