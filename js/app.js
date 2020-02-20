@@ -14,3 +14,45 @@ Türkçe:
 - Eğer 'Skip' derse o eldeki puanı global puanına eklenir
 - Kim ilk 100 global puana ulaşırsa oyunu kazanır
 */
+
+let scores, roundScore, activePlayer;
+
+scores = [0, 0];
+roundScore = 0;
+activePlayer = 0;
+
+let diceDOM = document.querySelector(".dice");
+diceDOM.style.display = "none";
+
+document.querySelector(".btn-roll").addEventListener("click", function() {
+  let dice = randomNumber();
+  showDice(dice);
+  isDiceOne(dice);
+});
+
+function addScore(dice) {
+  roundScore += dice;
+  document.querySelector("#current-" + activePlayer).textContent = roundScore;
+}
+
+function randomNumber() {
+  let dice = Math.floor(Math.random() * 6) + 1;
+  return dice;
+}
+
+function showDice(dice) {
+  document.querySelector("#current-" + activePlayer).textContent = dice.toString();
+  diceDOM.style.display = "block";
+  diceDOM.src = "img/dice-" + dice + ".png";
+}
+
+function isDiceOne(dice) {
+  if (dice !== 1) {
+    addScore(dice);
+
+  } else if (dice === 1) {
+    addScore(dice);
+    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+    roundScore = 0;
+  }
+}
