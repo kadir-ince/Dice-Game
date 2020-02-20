@@ -5,26 +5,28 @@ GAME RULES:
 - In each turn, a player rolls a dice as many times as he whishes. Each result get added to his ROUND score
 - BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
 - The player can choose to 'Skip', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
-- The first player to reach 100 points on GLOBAL score wins the game
+- The first player to reach 30 points on GLOBAL score wins the game
 
 Türkçe:
 - Oyun 2 kişi ile oynanır 
 - Her elde oyuncu istediği kadar zar atar ve global skoruna eklenir
 - Eğer ki 1 attığı zar 1 gelirse o eldeki tüm puanını kaybeder
 - Eğer 'Skip' derse o eldeki puanı global puanına eklenir
-- Kim ilk 100 global puana ulaşırsa oyunu kazanır
+- Kim ilk 30 global puana ulaşırsa oyunu kazanır
 */
 
-let scores, roundScore, activePlayer;
+let scores, roundScore, activePlayer, gameEnable;
 init();
 
 let diceDOM = document.querySelector(".dice");
 diceDOM.style.display = "none";
 
 document.querySelector(".btn-roll").addEventListener("click", function() {
-  let dice = randomNumber();
-  showDice(dice);
-  isDiceOne(dice);
+  if (gameEnable) {
+    let dice = randomNumber();
+    showDice(dice);
+    isDiceOne(dice);
+  }
 });
 
 function addScore(dice) {
@@ -70,6 +72,7 @@ function init() {
   scores = [0, 0];
   roundScore = 0;
   activePlayer = 0;
+  gameEnable = true;
 
   document.querySelector("#score-0").textContent = (0).toString();
   document.querySelector("#score-1").textContent = (0).toString();
@@ -84,23 +87,25 @@ function init() {
   document.querySelector(".player-0-panel").classList.add("active");
 }
 
-let btn_stop = document.querySelector(".btn-stop");
-btn_stop.addEventListener("click", function() {
-  scores[activePlayer] += roundScore;
-  document.querySelector("#score-" + activePlayer).textContent =
-    scores[activePlayer];
+document.querySelector(".btn-stop").addEventListener("click", function() {
+  if (gameEnable) {
+    scores[activePlayer] += roundScore;
+    document.querySelector("#score-" + activePlayer).textContent =
+      scores[activePlayer];
 
-  if (scores[activePlayer] >= 20) {
-    document.querySelector("#name-" + activePlayer).textContent = "Winner!";
-    diceDOM.style.display = "none";
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.add("winner");
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.remove("active");
-  } else {
-    nextPlayer();
+    if (scores[activePlayer] >= 30) {
+      document.querySelector("#name-" + activePlayer).textContent = "Winner!";
+      diceDOM.style.display = "none";
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.add("winner");
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.remove("active");
+      gameEnable = false;
+    } else {
+      nextPlayer();
+    }
   }
 });
 
