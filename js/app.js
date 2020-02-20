@@ -51,6 +51,7 @@ function isDiceOne(dice) {
     addScore(dice);
   } else if (dice === 1) {
     addScore(dice);
+    changeArrow();
     nextPlayer();
   }
 }
@@ -87,6 +88,16 @@ function init() {
   document.querySelector(".player-0-panel").classList.add("active");
 }
 
+function changeArrow(){
+  if (activePlayer === 0) {
+    document.querySelector(".stop").classList.remove("ion-arrow-right-c");
+    document.querySelector(".stop").classList.add("ion-arrow-left-c");
+  }else{
+    document.querySelector(".stop").classList.add("ion-arrow-right-c");
+    document.querySelector(".stop").classList.remove("ion-arrow-left-c");
+  }
+}
+
 document.querySelector(".btn-stop").addEventListener("click", function() {
   if (gameEnable) {
     scores[activePlayer] += roundScore;
@@ -94,7 +105,7 @@ document.querySelector(".btn-stop").addEventListener("click", function() {
       scores[activePlayer];
 
     if (scores[activePlayer] >= 30) {
-      document.querySelector("#name-" + activePlayer).textContent = "Winner!";
+      document.querySelector("#name-" + activePlayer).textContent = "Winner! 😃";
       diceDOM.style.display = "none";
       document
         .querySelector(".player-" + activePlayer + "-panel")
@@ -104,6 +115,7 @@ document.querySelector(".btn-stop").addEventListener("click", function() {
         .classList.remove("active");
       gameEnable = false;
     } else {
+      changeArrow();
       nextPlayer();
     }
   }
