@@ -15,14 +15,24 @@ Türkçe:
 - Kim ilk 30 global puana ulaşırsa oyunu kazanır
 */
 
-let scores, roundScore, activePlayer, gameEnable;
+let scores, roundScore, activePlayer, gameEnable, finish;
 init();
 
+let inputFinish = document.querySelector(".input-finish");
 let diceDOM = document.querySelector(".dice");
 diceDOM.style.display = "none";
 
 document.querySelector(".btn-roll").addEventListener("click", function() {
-  if (gameEnable) {
+  let inputValue = Number(inputFinish.value);
+  if (inputValue > 0) {
+    finish = inputValue;
+    inputFinish.disabled = true;
+  } else{
+    alert("Please Enter A Number Grater Than 0");
+    inputFinish.value = 0;
+  }
+
+  if (gameEnable && finish !== undefined) {
     let dice = randomNumber();
     showDice(dice);
     isDiceOne(dice);
@@ -73,6 +83,7 @@ function init() {
   scores = [0, 0];
   roundScore = 0;
   activePlayer = 0;
+  finish = undefined;
   gameEnable = true;
 
   document.querySelector("#score-0").textContent = (0).toString();
@@ -88,24 +99,25 @@ function init() {
   document.querySelector(".player-0-panel").classList.add("active");
 }
 
-function changeArrow(){
+function changeArrow() {
   if (activePlayer === 0) {
     document.querySelector(".stop").classList.remove("ion-arrow-right-c");
     document.querySelector(".stop").classList.add("ion-arrow-left-c");
-  }else{
+  } else {
     document.querySelector(".stop").classList.add("ion-arrow-right-c");
     document.querySelector(".stop").classList.remove("ion-arrow-left-c");
   }
 }
 
 document.querySelector(".btn-stop").addEventListener("click", function() {
-  if (gameEnable) {
+  if (gameEnable && finish !== undefined) {
     scores[activePlayer] += roundScore;
     document.querySelector("#score-" + activePlayer).textContent =
       scores[activePlayer];
 
-    if (scores[activePlayer] >= 30) {
-      document.querySelector("#name-" + activePlayer).textContent = "Winner! 😃";
+    if (scores[activePlayer] >= finish) {
+      document.querySelector("#name-" + activePlayer).textContent =
+        "Winner! 😃";
       diceDOM.style.display = "none";
       document
         .querySelector(".player-" + activePlayer + "-panel")

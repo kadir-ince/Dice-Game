@@ -22,7 +22,7 @@ body {
     url(../img/back.jpg);
   background-size: cover;
   background-position: center;
-  font-family: Lato;
+  font-family: Lato, serif;
   font-weight: 300;
   position: relative;
   height: 100vh;
@@ -36,7 +36,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
-  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
 
@@ -115,7 +115,7 @@ button {
   color: #555;
   background: none;
   border: none;
-  font-family: Lato;
+  font-family: Lato, serif;
   font-size: 20px;
   text-transform: uppercase;
   cursor: pointer;
@@ -153,6 +153,18 @@ i {
 }
 .btn-stop {
   top: 467px;
+}
+.input-finish{
+  position: absolute;
+  top: 520px;
+  left: 405px;
+  border-radius: 3px;
+  font-size: 20px;
+  text-align: center;
+  width: 190px;
+}
+.input-finish:focus{
+  outline: none;
 }
 
 .dice {
