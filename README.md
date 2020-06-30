@@ -1,4 +1,7 @@
 # Dice Game Link
+This is a Dice Game. You can play with your friend <br>
+[How To Play?](#how-to-play) <br>
+You can play the Dice Game below link 👇🏼
 
 [Try Game](https://tender-heyrovsky-343cd1.netlify.app)  <br> 
 This link hosting by Netlify ![ Netflify Icon](https://api.iconify.design/logos-netlify.svg)
